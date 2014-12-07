@@ -1,15 +1,15 @@
 (function(){
 	angular
 		.module('ticTacToeApp')
-		.factory('GameBoard', GameBoardFunc);
+		.factory('MinorBoard', MinorBoardFunc);
 
-	function GameBoardFunc() {
+	function MinorBoardFunc() {
 		//0 = blank space, 1 = X, 2 = O
 		var CELL_STATE = ['unselected-cell', 'x-cell', 'o-cell'];
 		var PLAYER_PIECE = [1, 2];
 		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
 
-		var GameBoard = function() {
+		var MinorBoard = function() {
 			//variables
 			this.cells = new Array(9);
 			this.currentPlayer = 0;
@@ -56,37 +56,37 @@
 
 				for(var i = 0; i < 3; i++) {
 					//check verticle
-					if(		this.cells[i]		=== this.cells[i + 3] 
-						&& 	this.cells[i + 3]	=== this.cells[i + 6] 
-						&& 	this.cells[i]		!== 0) 
+					if(		this.cells[i].valueOf()		=== this.cells[i + 3].valueOf() 
+						&& 	this.cells[i + 3].valueOf()	=== this.cells[i + 6].valueOf() 
+						&& 	this.cells[i].valueOf()		!== 0) 
 					{
-						return this.cells[i];
+						return this.cells[i].valueOf();
 					}
 					//check horizontal
 					var j = i * 3;
-					if(		this.cells[j]		=== this.cells[j + 1] 
-						&& 	this.cells[j + 1]	=== this.cells[j + 2] 
-						&& 	this.cells[j]		!== 0) 
+					if(		this.cells[j].valueOf()		=== this.cells[j + 1].valueOf() 
+						&& 	this.cells[j + 1].valueOf()	=== this.cells[j + 2].valueOf() 
+						&& 	this.cells[j].valueOf()		!== 0) 
 					{
-						return this.cells[j];
+						return this.cells[j].valueOf();
 					}
 				}
 				//check diagonals
-				if(		this.cells[0] === this.cells[4] 
-					&&	this.cells[4] === this.cells[8] 
-					&&	this.cells[0] !== 0)
+				if(		this.cells[0].valueOf() === this.cells[4].valueOf() 
+					&&	this.cells[4].valueOf() === this.cells[8].valueOf() 
+					&&	this.cells[0].valueOf() !== 0)
 				{
-					return this.cells[0];
+					return this.cells[0].valueOf();
 				}
-				if(		this.cells[2] === this.cells[4] 
-					&&	this.cells[4] === this.cells[6] 
-					&&	this.cells[2] !== 0) 
+				if(		this.cells[2].valueOf() === this.cells[4].valueOf() 
+					&&	this.cells[4].valueOf() === this.cells[6].valueOf() 
+					&&	this.cells[2].valueOf() !== 0) 
 				{
-					return this.cells[2];
+					return this.cells[2].valueOf();
 				}
 
 				for(var i = 0; i < this.cells.length; i++) {
-					if(this.cells[i] === 0) {
+					if(this.cells[i].valueOf() === 0) {
 						return 0;
 					}
 				}
@@ -99,6 +99,6 @@
 		}
 
 
-		return GameBoard;
+		return MinorBoard;
 	}
 })();
