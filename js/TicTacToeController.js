@@ -9,6 +9,5 @@
 		this.gameName = "tic tac toe";
 		this.activeBoard = new MinorBoard();
 		
-		this.activeBoard.init();
 	}
 })();

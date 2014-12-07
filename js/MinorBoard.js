@@ -24,6 +24,8 @@
 			this.checkForWin = checkForWin;
 			this.getGameMessage = getGameMessage;
 
+			this.init();
+			
 			function init() {
 				for(var i = 0; i < this.cells.length; i++) {
 					this.cells[i] = 0;
