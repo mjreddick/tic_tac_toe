@@ -5,101 +5,91 @@
 
 	function MinorBoardFunc() {
 		//0 = blank space, 1 = X, 2 = O
+		// state: 0 no winner, 1 X wins, 2 O wins
 		var CELL_STATE = ['unselected-cell', 'x-cell', 'o-cell'];
-		var PLAYER_PIECE = [1, 2];
-		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
+		
 
-		var MinorBoard = function() {
+		var MinorBoard = function(parentBoard, size) {
 			//variables
-			this.cells = new Array(9);
-			this.currentPlayer = 0;
-			this.gameState = 0;
+			this.cells = new Array(size);
+			// this.currentPlayer = 0;
+			this.state = 0;
+			this.parentBoard = parentBoard;
+			this.active = true;
 
 			//methods
 			this.makeMove = makeMove;
 			this.init = init;
-			this.getPlayerPiece = getPlayerPiece;
-			this.changeTurn = changeTurn;
+			// this.getPlayerPiece = getPlayerPiece;
+			// this.changeTurn = changeTurn;
 			this.getCellState = getCellState;
 			this.checkForWin = checkForWin;
 			this.getGameMessage = getGameMessage;
+			this.isPlayable = isPlayable;
+			this.setActive = setActive;
+			this.valueOf = valueOf;
 
 			this.init();
-			
+
 			function init() {
 				for(var i = 0; i < this.cells.length; i++) {
 					this.cells[i] = 0;
 				}
 			}
 
-			function makeMove(cellPosition) {
-				if(this.cells[cellPosition] === 0 && this.gameState === 0) {
-					this.cells[cellPosition] = this.getPlayerPiece();
-					this.changeTurn();
-					this.gameState = this.checkForWin();
+			function valueOf() {
+				return this.state;
+			}
 
+			function checkForWin() {
+				if(this.state === 0){
+					return this.parentBoard.checkForWin(this.cells);
+				}
+				return this.state;
+
+			}
+
+			function makeMove(cellPosition) {
+				if(this.cells[cellPosition] === 0 && this.active && this.parentBoard.gameState === 0) {
+					this.cells[cellPosition] = this.parentBoard.getPlayerPiece();
+					this.state = this.checkForWin();
+					this.parentBoard.moveMade(cellPosition);
 				}
 			}
 
-			function getPlayerPiece() {
-				return PLAYER_PIECE[this.currentPlayer];
-			}
+			// function getPlayerPiece() {
+			// 	return this.parentBoard.getPlayerPiece();
+			// }
 
-			function changeTurn() {
-				this.currentPlayer = (this.currentPlayer + 1) % PLAYER_PIECE.length;
-			}
+			
 
 			function getCellState(cellPosition) {
 				return CELL_STATE[this.cells[cellPosition]];
 			}
 
-			function checkForWin() {
-				//returns a 0 for no win, 1 for X win, 2 for O win, and 3 for cat's game
+			
+			function getGameMessage() {
+				return MESSAGES[this.gameState];
+			}
 
-				for(var i = 0; i < 3; i++) {
-					//check verticle
-					if(		this.cells[i].valueOf()		=== this.cells[i + 3].valueOf() 
-						&& 	this.cells[i + 3].valueOf()	=== this.cells[i + 6].valueOf() 
-						&& 	this.cells[i].valueOf()		!== 0) 
-					{
-						return this.cells[i].valueOf();
-					}
-					//check horizontal
-					var j = i * 3;
-					if(		this.cells[j].valueOf()		=== this.cells[j + 1].valueOf() 
-						&& 	this.cells[j + 1].valueOf()	=== this.cells[j + 2].valueOf() 
-						&& 	this.cells[j].valueOf()		!== 0) 
-					{
-						return this.cells[j].valueOf();
-					}
-				}
-				//check diagonals
-				if(		this.cells[0].valueOf() === this.cells[4].valueOf() 
-					&&	this.cells[4].valueOf() === this.cells[8].valueOf() 
-					&&	this.cells[0].valueOf() !== 0)
-				{
-					return this.cells[0].valueOf();
-				}
-				if(		this.cells[2].valueOf() === this.cells[4].valueOf() 
-					&&	this.cells[4].valueOf() === this.cells[6].valueOf() 
-					&&	this.cells[2].valueOf() !== 0) 
-				{
-					return this.cells[2].valueOf();
-				}
-
+			function isPlayable() {
 				for(var i = 0; i < this.cells.length; i++) {
-					if(this.cells[i].valueOf() === 0) {
-						return 0;
+					if(this.cells[i] === 0) {
+						return true;
 					}
 				}
-				return 3;
+				return false;
+			}
+
+			function setActive(bool) {
+				if(bool && this.isPlayable()) {
+					this.active = true;
+				}
+				else{
+					this.active = false;
+				}
 			}
 		}
-
-		function getGameMessage() {
-			return MESSAGES[this.gameState];
-		}
-
 
 		return MinorBoard;
 	}

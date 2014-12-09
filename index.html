@@ -16,19 +16,27 @@
 		<script src="js/angular.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/MinorBoard.js"></script>
+		<script src="js/GameBoard.js"></script>
 		<script src="js/TicTacToeController.js"></script>
 	</head>
 
 	<body ng-controller="TicTacToeController as game">
 	{{game.gameName}}
-	<h1>{{game.activeBoard.getGameMessage()}}</h1>
+	<!-- <h1>{{game.activeBoard.getGameMessage()}}</h1> -->
 		<section id="active-board">
+
 			<div class="game-board">
-				<div class="board-cell"
-					ng-repeat="cell in game.activeBoard.cells track by $index"
-					ng-click="game.activeBoard.makeMove($index)"
-					ng-class="game.activeBoard.getCellState($index)">
-					
+			{{game.gameBoard.gameState}} blah blah
+			<br>
+				<div class="small-board" ng-repeat="smallBoard in game.gameBoard.cells track by $index">
+					{{smallBoard.state}}
+					<br>
+					<div class="cell"
+						ng-repeat="cell in smallBoard.cells track by $index"
+						ng-click="smallBoard.makeMove($index)"
+						ng-class="smallBoard.getCellState($index)">
+						
+					</div>
 				</div>
 			</div>
 		</section>

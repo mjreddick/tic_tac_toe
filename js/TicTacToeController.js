@@ -3,11 +3,11 @@
 		.module('ticTacToeApp')
 		.controller('TicTacToeController', TicTacToeController);
 
-	TicTacToeController.$inject = ['MinorBoard'];
+	TicTacToeController.$inject = ['GameBoard'];
 
-	function TicTacToeController(MinorBoard) {
+	function TicTacToeController(GameBoard) {
 		this.gameName = "tic tac toe";
-		this.activeBoard = new MinorBoard();
+		this.gameBoard = new GameBoard(9, 9);
 		
 	}
 })();
