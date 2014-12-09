@@ -10,71 +10,74 @@
 		
 
 		var MinorBoard = function(parentBoard, size) {
-			//variables
-			this.cells = new Array(size);
-			// this.currentPlayer = 0;
-			this.state = 0;
-			this.parentBoard = parentBoard;
-			this.active = true;
+			//private variables
+			var self = this;
+
+			//properties
+			self.cells = new Array(size);
+			// self.currentPlayer = 0;
+			self.state = 0;
+			self.parentBoard = parentBoard;
+			self.active = true;
 
 			//methods
-			this.makeMove = makeMove;
-			this.init = init;
-			// this.getPlayerPiece = getPlayerPiece;
-			// this.changeTurn = changeTurn;
-			this.getCellState = getCellState;
-			this.checkForWin = checkForWin;
-			this.getGameMessage = getGameMessage;
-			this.isPlayable = isPlayable;
-			this.setActive = setActive;
-			this.valueOf = valueOf;
+			self.makeMove = makeMove;
+			self.init = init;
+			// self.getPlayerPiece = getPlayerPiece;
+			// self.changeTurn = changeTurn;
+			self.getCellState = getCellState;
+			self.checkForWin = checkForWin;
+			self.getGameMessage = getGameMessage;
+			self.isPlayable = isPlayable;
+			self.setActive = setActive;
+			self.valueOf = valueOf;
 
-			this.init();
+			self.init();
 
 			function init() {
-				for(var i = 0; i < this.cells.length; i++) {
-					this.cells[i] = 0;
+				for(var i = 0; i < self.cells.length; i++) {
+					self.cells[i] = 0;
 				}
 			}
 
 			function valueOf() {
-				return this.state;
+				return self.state;
 			}
 
 			function checkForWin() {
-				if(this.state === 0){
-					return this.parentBoard.checkForWin(this.cells);
+				if(self.state === 0){
+					return self.parentBoard.checkForWin(self.cells);
 				}
-				return this.state;
+				return self.state;
 
 			}
 
 			function makeMove(cellPosition) {
-				if(this.cells[cellPosition] === 0 && this.active && this.parentBoard.gameState === 0) {
-					this.cells[cellPosition] = this.parentBoard.getPlayerPiece();
-					this.state = this.checkForWin();
-					this.parentBoard.moveMade(cellPosition);
+				if(self.cells[cellPosition] === 0 && self.active && self.parentBoard.gameState === 0) {
+					self.cells[cellPosition] = self.parentBoard.getPlayerPiece();
+					self.state = self.checkForWin();
+					self.parentBoard.moveMade(cellPosition);
 				}
 			}
 
 			// function getPlayerPiece() {
-			// 	return this.parentBoard.getPlayerPiece();
+			// 	return self.parentBoard.getPlayerPiece();
 			// }
 
 			
 
 			function getCellState(cellPosition) {
-				return CELL_STATE[this.cells[cellPosition]];
+				return CELL_STATE[self.cells[cellPosition]];
 			}
 
 			
 			function getGameMessage() {
-				return MESSAGES[this.gameState];
+				return MESSAGES[self.gameState];
 			}
 
 			function isPlayable() {
-				for(var i = 0; i < this.cells.length; i++) {
-					if(this.cells[i] === 0) {
+				for(var i = 0; i < self.cells.length; i++) {
+					if(self.cells[i] === 0) {
 						return true;
 					}
 				}
@@ -82,11 +85,11 @@
 			}
 
 			function setActive(bool) {
-				if(bool && this.isPlayable()) {
-					this.active = true;
+				if(bool && self.isPlayable()) {
+					self.active = true;
 				}
 				else{
-					this.active = false;
+					self.active = false;
 				}
 			}
 		}

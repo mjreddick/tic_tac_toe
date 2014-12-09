@@ -11,27 +11,31 @@
 		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
 
 		var GameBoard = function(boardSize, minorBoardSize) {
+			//private variables
+			var self = this;
+
 			//properties
-			this.cells = new Array(boardSize);
-			this.currentPlayer = 0;
-			this.gameState = 0;
+			self.cells = new Array(boardSize);
+			self.currentPlayer = 0;
+			self.gameState = 0;
 			
+
 			//methods
-			this.init = init;
-			this.resetBoard = resetBoard;
-			this.moveMade = moveMade;
-			this.checkForWin = checkForWin;
-			this.changePlayer = changePlayer;
-			this.getPlayerPiece = getPlayerPiece;
+			self.init = init;
+			self.resetBoard = resetBoard;
+			self.moveMade = moveMade;
+			self.checkForWin = checkForWin;
+			self.changePlayer = changePlayer;
+			self.getPlayerPiece = getPlayerPiece;
 
 			//initialization
-			this.init();
+			self.init();
 
 			//method declarations
 			function init() {
-				for(var i = 0; i < this.cells.length; i++) {
-						this.cells[i] = new MinorBoard(this, minorBoardSize);
-						this.cells[i].active = 1;
+				for(var i = 0; i < self.cells.length; i++) {
+						self.cells[i] = new MinorBoard(self, minorBoardSize);
+						self.cells[i].active = 1;
 					}
 				// this.gameState = 0;
 				// currentPlayer = 0;
@@ -39,41 +43,41 @@
 			}
 
 			function getPlayerPiece() {
-				return PLAYER_PIECE[this.currentPlayer]
+				return PLAYER_PIECE[self.currentPlayer]
 			}
 
 			function resetBoard() {
-				for(var i = 0; i < this.cells.length; i++) {
-						this.cells[i].init();
-						this.cells[i].active = 1;
+				for(var i = 0; i < self.cells.length; i++) {
+						self.cells[i].init();
+						self.cells[i].active = 1;
 					}
-				this.gameState = 0;
+				self.gameState = 0;
 				currentPlayer = 0;
 			}
 
 			function changePlayer() {
-				this.currentPlayer = (this.currentPlayer + 1) % PLAYER_PIECE.length;
+				self.currentPlayer = (self.currentPlayer + 1) % PLAYER_PIECE.length;
 			}
 
 			function moveMade(index) {
-				this.gameState = this.checkForWin(this.cells); 
-				this.changePlayer();
-				if(this.cells[index].isPlayable()) {
+				self.gameState = self.checkForWin(self.cells); 
+				self.changePlayer();
+				if(self.cells[index].isPlayable()) {
 					//set all cells boardActive to false
 					//except cells[index] which gets set to true
-					for(var i = 0; i < this.cells.length; i++) {
+					for(var i = 0; i < self.cells.length; i++) {
 						if(i === index) {
-							this.cells[i].setActive(true);
+							self.cells[i].setActive(true);
 						}
 						else {
-							this.cells[i].setActive(false);
+							self.cells[i].setActive(false);
 						}
 					}
 				}
 				else {
 					//set all cells boardActive to true
-					for(var i = 0; i < this.cells.length; i++) {
-						this.cells[i].setActive(true);
+					for(var i = 0; i < self.cells.length; i++) {
+						self.cells[i].setActive(true);
 					}
 
 				}
