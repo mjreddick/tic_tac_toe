@@ -3,9 +3,9 @@
 		.module('ticTacToeApp')
 		.factory('GameBoard', GameBoardFunc);
 
-	GameBoardFunc.$inject = ['MinorBoard'];
+	GameBoardFunc.$inject = ['MinorBoard', '$firebase'];
 
-	function GameBoardFunc(MinorBoard) {
+	function GameBoardFunc(MinorBoard, $firebase) {
 
 		var PLAYER_PIECE = [1, 2];
 		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
