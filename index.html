@@ -26,15 +26,17 @@
 		<section id="active-board">
 
 			<div class="game-board">
-			{{game.gameBoard.gameState}} blah blah
+			Game State: {{game.gameBoard.gameState.gameStatus}}
 			<br>
-				<div class="small-board" ng-repeat="smallBoard in game.gameBoard.cells track by $index">
-					{{smallBoard.state}}
+				<div class="small-board" 
+					 ng-repeat="smallBoard in game.gameBoard.gameState.minorBoards track by $index"
+					 ng-class="{'active-board': smallBoard.active}">
+					{{smallBoard.status}}
 					<br>
 					<div class="cell"
 						ng-repeat="cell in smallBoard.cells track by $index"
-						ng-click="smallBoard.makeMove($index)"
-						ng-class="smallBoard.getCellState($index)">
+						ng-click="game.gameBoard.makeMove($parent.$index, $index)"
+						ng-class="game.gameBoard.getCellState($parent.$index, $index)">
 						
 					</div>
 				</div>
