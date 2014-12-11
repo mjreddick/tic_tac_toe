@@ -7,6 +7,7 @@
 
 	function GameBoardFunc(MinorBoard, $firebase) {
 
+		var URL = "https://3-t.firebaseio.com";
 		var PLAYER_PIECE = [1, 2];
 		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
 		var CELL_STATE = ['unselected-cell', 'x-cell', 'o-cell'];
@@ -19,17 +20,13 @@
 			self.gameState = {minorBoards: new Array(9),
 							currentPlayer: null,
 							gameStatus: null};
-			
 
 			//methods
 			self.makeMove = makeMove;
-			self.checkForWin = checkForWin;
-			self.changePlayer = changePlayer;
 			self.getPlayerPiece = getPlayerPiece;
 			self.getCellState = getCellState;
-			self.isPlayable = isPlayable;
-			self.setActiveState = setActiveState;
 
+			
 			//initialization
 			(function init() {
 				for(var i = 0; i < self.gameState.minorBoards.length; i++) {
@@ -47,17 +44,23 @@
 					&& self.gameState.gameStatus === 0) 
 				{
 					self.gameState.minorBoards[boardIndex].cells[cellIndex] = self.getPlayerPiece();
-					self.gameState.minorBoards[boardIndex].status = self.checkForWin(self.gameState.minorBoards[boardIndex].cells);// might need two win checkers
-					self.gameState.gameStatus = self.checkForWin(self.gameState.minorBoards);
-					self.changePlayer();
-					self.setActiveState(cellIndex);
+					self.gameState.minorBoards[boardIndex].status = checkForWin(self.gameState.minorBoards[boardIndex].cells);// might need two win checkers
+					self.gameState.gameStatus = checkForWin(self.gameState.minorBoards);
+					changePlayer();
+					setActiveState(cellIndex);
 					
 				}
+			}
+
+			function getPlayerPiece() {
+				return PLAYER_PIECE[self.gameState.currentPlayer]
 			}
 
 			function getCellState(boardIndex, cellIndex) {
 				return CELL_STATE[self.gameState.minorBoards[boardIndex].cells[cellIndex]];
 			}
+
+			//Private methods
 
 			function isPlayable(minorBoard) {
 				//Tells you if any spaces are left that can be moved to
@@ -91,10 +94,6 @@
 
 				}
 
-			}
-
-			function getPlayerPiece() {
-				return PLAYER_PIECE[self.gameState.currentPlayer]
 			}
 
 			function changePlayer() {
