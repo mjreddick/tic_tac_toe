@@ -13,13 +13,15 @@
 		var CELL_STATE = ['unselected-cell', 'x-cell', 'o-cell'];
 
 		var GameBoard = function() {
-			//private variables
+			//capture variable
 			var self = this;
 
 			//properties
-			self.gameState = {minorBoards: new Array(9),
-							currentPlayer: null,
-							gameStatus: null};
+			// self.gameState = {minorBoards: new Array(9),
+			// 				currentPlayer: null,
+			// 				gameStatus: null};
+
+			self.gameState = getGameState();
 
 			//methods
 			self.makeMove = makeMove;
@@ -28,14 +30,21 @@
 
 			
 			//initialization
-			(function init() {
-				for(var i = 0; i < self.gameState.minorBoards.length; i++) {
-						self.gameState.minorBoards[i] = new MinorBoard();
-						self.gameState.minorBoards[i].active = 1;
-					}
-				self.gameState.currentPlayer = 0;
-				self.gameState.gameStatus = 0;
-			})()
+
+			self.gameState.$loaded().then(initGameState);
+
+			function initGameState(x) {
+				if(self.gameState.gameStatus === undefined) {
+					self.gameState.minorBoards = new Array(9);
+					for(var i = 0; i < self.gameState.minorBoards.length; i++) {
+							self.gameState.minorBoards[i] = new MinorBoard();
+							self.gameState.minorBoards[i].active = 1;
+						}
+					self.gameState.currentPlayer = 0;
+					self.gameState.gameStatus = 0;
+					self.gameState.$save();
+				}
+			}
 
 			//method declarations
 			function makeMove(boardIndex, cellIndex) {
@@ -48,6 +57,7 @@
 					self.gameState.gameStatus = checkForWin(self.gameState.minorBoards);
 					changePlayer();
 					setActiveState(cellIndex);
+					self.gameState.$save();
 					
 				}
 			}
@@ -61,6 +71,12 @@
 			}
 
 			//Private methods
+
+			function getGameState(){
+				var ref = new Firebase(URL + "/gamestate");
+				var gameState = $firebase(ref).$asObject();
+				return gameState;
+			}
 
 			function isPlayable(minorBoard) {
 				//Tells you if any spaces are left that can be moved to
