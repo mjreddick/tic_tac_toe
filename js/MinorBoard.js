@@ -7,8 +7,7 @@
 		// in cells: 0 = blank space, 1 = X, 2 = O
 		// status: 0 no winner, 1 X wins, 2 O wins		
 
-		var MinorBoard = function() {//(parentBoard, size) {
-
+		var MinorBoard = function() {
 			//properties
 			// 0 = blank space, 1 = X, 2 = O
 			this.cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];

@@ -8,6 +8,5 @@
 	function TicTacToeController(GameBoard) {
 		this.gameName = "tic tac toe";
 		this.gameBoard = new GameBoard();
-		
 	}
 })();
