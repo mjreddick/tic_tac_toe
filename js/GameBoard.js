@@ -17,11 +17,9 @@
 			var self = this;
 
 			//properties
-			// self.gameState = {minorBoards: new Array(9),
-			// 				currentPlayer: null,
-			// 				gameStatus: null};
-
 			self.gameState = getGameState();
+			self.players = getPlayers();
+			self.localPlayer = null;
 
 			//methods
 			self.makeMove = makeMove;
@@ -30,8 +28,9 @@
 
 			
 			//initialization
-
 			self.gameState.$loaded().then(initGameState);
+			self.players.$loaded().then(initPlayers)
+
 
 			function initGameState(x) {
 				if(self.gameState.gameStatus === undefined) {
@@ -46,11 +45,23 @@
 				}
 			}
 
+			function initPlayers(x) {
+				if(self.players.numPlayers === undefined) {
+					self.players.numPlayers = 1;
+				}
+				else {
+					self.players.numPlayers = self.players.numPlayers + 1;
+				}
+				self.localPlayer = (self.players.numPlayers - 1) % 2;
+				self.players.$save();
+			}
+
 			//method declarations
 			function makeMove(boardIndex, cellIndex) {
 				if(self.gameState.minorBoards[boardIndex].cells[cellIndex] === 0 
 					&& self.gameState.minorBoards[boardIndex].active 
-					&& self.gameState.gameStatus === 0) 
+					&& self.gameState.gameStatus === 0
+					&& self.localPlayer === self.gameState.currentPlayer) 
 				{
 					self.gameState.minorBoards[boardIndex].cells[cellIndex] = self.getPlayerPiece();
 					self.gameState.minorBoards[boardIndex].status = checkForWin(self.gameState.minorBoards[boardIndex].cells);// might need two win checkers
@@ -76,6 +87,12 @@
 				var ref = new Firebase(URL + "/gamestate");
 				var gameState = $firebase(ref).$asObject();
 				return gameState;
+			}
+
+			function getPlayers(){
+				var ref = new Firebase(URL + "/players");
+				var players = $firebase(ref).$asObject();
+				return players;
 			}
 
 			function isPlayable(minorBoard) {
