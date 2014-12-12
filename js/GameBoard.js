@@ -10,7 +10,7 @@
 		var URL = "https://3-t.firebaseio.com";
 		var PLAYER_PIECE = [1, 2];
 		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
-		var CELL_STATE = ['unselected-cell', 'x-cell', 'o-cell'];
+		var CELL_STATE = ['unselected', 'x-selected', 'o-selected'];
 
 		var GameBoard = function() {
 			//capture variable

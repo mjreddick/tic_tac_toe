@@ -2,13 +2,6 @@ body {
 	width: 540px;
 	margin: 0px auto;
 }
-.cell {
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-	background-color: white;
-	border: 2px solid black;
-}
 
 .small-board {
 	display: inline-block;
@@ -20,15 +13,60 @@ body {
 	border-color: yellow;
 }
 
+.cell-container {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	/*background-color: white;*/
+	/*border: 2px solid black;*/
+	position: relative;
+	transform: perspective( 2000px );
 
-.unselected-cell {
+}
+
+.cell-prism {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	transform-style: preserve-3d;
+	transition: 1s;
+	transform: translateZ( -14px );
+}
+
+.cell-prism figure {
+	position: absolute;
+	width: 48px;
+	height: 48px;
+	display: block;
+	line-height: 48px;
+	text-align: center;
+	font-size: 40px;
+	border: 1px solid black;
+	margin: 0px;
+}
+
+.blank-cell {
 	background-color: white;
+	-webkit-transform: rotateY( 0deg ) translateZ( 14px );
 }
 
 .x-cell {
 	background-color: red;
+	-webkit-transform: rotateY( 120deg ) translateZ( 14px );
 }
 
 .o-cell {
 	background-color: blue;
+	-webkit-transform: rotateY( -120deg ) translateZ( 14px );
 }
+
+.unselected {
+	-webkit-transform: rotateY( 0deg );
+}
+.x-selected {
+	-webkit-transform: rotateY( -120deg );
+}
+.o-selected {
+	-webkit-transform: rotateY( 120deg );
+}
+

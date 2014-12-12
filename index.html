@@ -35,11 +35,15 @@
 					 ng-class="{'active-board': smallBoard.active}">
 					{{smallBoard.status}}
 					<br>
-					<div class="cell"
+					<div class="cell-container"
 						ng-repeat="cell in smallBoard.cells track by $index"
-						ng-click="game.gameBoard.makeMove($parent.$index, $index)"
-						ng-class="game.gameBoard.getCellState($parent.$index, $index)">
-						
+						ng-click="game.gameBoard.makeMove($parent.$index, $index)">
+						<div class="cell-prism"
+							 ng-class="game.gameBoard.getCellState($parent.$index, $index)">
+							<figure class="blank-cell"></figure>
+							<figure class="x-cell">X</figure>
+							<figure class="o-cell">O</figure>
+						</div>
 					</div>
 				</div>
 			</div>
