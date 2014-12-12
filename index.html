@@ -10,7 +10,7 @@
 		<script src="js/html5shiv.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/style.css">
 		
 		<script src="js/angular.js"></script>
@@ -23,18 +23,18 @@
 	</head>
 
 	<body ng-controller="TicTacToeController as game">
-	{{game.gameName}}
+	<!-- {{game.gameName}} -->
 	<!-- <h1>{{game.activeBoard.getGameMessage()}}</h1> -->
 		<section id="active-board">
 
 			<div class="game-board">
-			Game State: {{game.gameBoard.gameState.gameStatus}}
-			<br>
+			<!-- Game State: {{game.gameBoard.gameState.gameStatus}}
+			<br> -->
 				<div class="small-board" 
 					 ng-repeat="smallBoard in game.gameBoard.gameState.minorBoards track by $index"
-					 ng-class="{'active-board': smallBoard.active}">
-					{{smallBoard.status}}
-					<br>
+					 ng-class="game.gameBoard.getMinorBoardStyle($index)">
+					<!-- {{smallBoard.status}}
+					<br> -->
 					<div class="cell-container"
 						ng-repeat="cell in smallBoard.cells track by $index"
 						ng-click="game.gameBoard.makeMove($parent.$index, $index)">

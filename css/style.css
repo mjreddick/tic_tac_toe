@@ -1,22 +1,51 @@
 body {
-	width: 540px;
+	width: 600px;
 	margin: 0px auto;
+	font-family: sans-serif;
+	background-color: linen;
 }
 
 .small-board {
 	display: inline-block;
-	width: 170px;
-	border: 4px solid blue;
+	width: 144px;
+	height: 144px;
+	padding: 4px;
+	margin: 10px;
+	border: 6px solid white;
+	border-radius: 10px;
+	text-align: center;
+	line-height: 0;
 }
 
-.active-board {
-	border-color: yellow;
+.x-active {
+	border-color: #FFC585;
+}
+
+.o-active {
+	border-color: #5599B2;
+}
+
+.minor-no-win {
+	background-color: linen;
+}
+
+.x-minor-win {
+	background-color: #FFD8AD;
+}
+
+.o-minor-win {
+	background-color: #68BAD9;
+}
+
+.minor-cat-game {
+	background-color: orange;
 }
 
 .cell-container {
 	display: inline-block;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
+	margin: 4px;
 	/*background-color: white;*/
 	/*border: 2px solid black;*/
 	position: relative;
@@ -30,34 +59,34 @@ body {
 	position: absolute;
 	transform-style: preserve-3d;
 	transition: 1s;
-	transform: translateZ( -14px );
+	-webkit-transform: translateZ( -14px );
 }
 
 .cell-prism figure {
 	position: absolute;
-	width: 48px;
-	height: 48px;
+	width: 38px;
+	height: 38px;
 	display: block;
-	line-height: 48px;
+	line-height: 38px;
 	text-align: center;
-	font-size: 40px;
+	font-size: 30px;
 	border: 1px solid black;
 	margin: 0px;
 }
 
 .blank-cell {
-	background-color: white;
-	-webkit-transform: rotateY( 0deg ) translateZ( 14px );
+	background-color: #BECCD1;
+	-webkit-transform: rotateY( 0deg ) translateZ( 12px );
 }
 
 .x-cell {
-	background-color: red;
-	-webkit-transform: rotateY( 120deg ) translateZ( 14px );
+	background-color: #FFC585;
+	-webkit-transform: rotateY( 120deg ) translateZ( 12px );
 }
 
 .o-cell {
-	background-color: blue;
-	-webkit-transform: rotateY( -120deg ) translateZ( 14px );
+	background-color: #5599B2;
+	-webkit-transform: rotateY( -120deg ) translateZ( 12px );
 }
 
 .unselected {

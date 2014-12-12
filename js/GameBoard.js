@@ -11,6 +11,8 @@
 		var PLAYER_PIECE = [1, 2];
 		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
 		var CELL_STATE = ['unselected', 'x-selected', 'o-selected'];
+		var MINORBOARD_STATE = ['minor-no-win', 'x-minor-win','o-minor-win', 'minor-cat-game'];
+		var ACTIVE_STYLES = ['x-active', 'o-active']
 
 		var GameBoard = function() {
 			//capture variable
@@ -25,6 +27,7 @@
 			self.makeMove = makeMove;
 			self.getPlayerPiece = getPlayerPiece;
 			self.getCellState = getCellState;
+			self.getMinorBoardStyle = getMinorBoardStyle;
 
 			
 			//initialization
@@ -79,6 +82,16 @@
 
 			function getCellState(boardIndex, cellIndex) {
 				return CELL_STATE[self.gameState.minorBoards[boardIndex].cells[cellIndex]];
+			}
+
+			function getMinorBoardStyle(boardIndex) {
+				var minorBoard = self.gameState.minorBoards[boardIndex];
+				var styles = []
+				styles.push(MINORBOARD_STATE[minorBoard.status])
+				if(minorBoard.active) {
+					styles.push(ACTIVE_STYLES[self.gameState.currentPlayer]);
+				}
+				return styles;
 			}
 
 			//Private methods
