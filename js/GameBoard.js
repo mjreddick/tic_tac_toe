@@ -18,24 +18,84 @@
 			//capture variable
 			var self = this;
 
-			//properties
-			self.gameState = getGameState();
-			self.players = getPlayers();
+			//public properties
+			self.gameState = null;//getGameState();
+			// self.players = getPlayers();
 			self.localPlayer = null;
 
-			//methods
+			//public methods
 			self.makeMove = makeMove;
 			self.getPlayerPiece = getPlayerPiece;
 			self.getCellState = getCellState;
 			self.getMinorBoardStyle = getMinorBoardStyle;
 
+			//private properties
+			// var sessionNum = getSessionNum();
+			var gameNum = null;
 			
 			//initialization
-			self.gameState.$loaded().then(initGameState);
-			self.players.$loaded().then(initPlayers)
+			// sessionNum.$loaded().then(initSession);
+			// self.gameState.$loaded().then(initGameState);
+			// self.players.$loaded().then(initPlayers)
 
+			(function init() {
+				var ref = new Firebase(URL + "/numplayers");
+				var numPlayersRef = $firebase(ref);
+				numPlayersRef
+					.$transaction(updateNumPlayers)
+					.then(initGame);
+				
+				function updateNumPlayers(numPlayers) {
+					if(!numPlayers) {
+						return 1;
+					}
+					return numPlayers + 1;
+				}
 
-			function initGameState(x) {
+				function initGame(snapShot) {
+					var numPlayers = snapShot.val();
+					gameNum = Math.floor((numPlayers - 1) / 2);
+					self.localPlayer = (numPlayers - 1) % 2;
+					console.log(URL + "/game" + gameNum);
+					self.gameState = getGameState();
+					self.gameState.$loaded().then(initGameState);
+
+					// var ref = new Firebase(URL + "/game" + gameNum);
+					// var gameRef = $firebase(ref);
+					// gameRef
+					// 	.$transaction(createGame)
+					// 	.then(setGameState)
+
+					// function createGame(currentGame) {
+					// 	var game = {};
+					// 	if(!currentGame) {
+					// 		game.minorBoards = new Array(9);
+					// 		for(var i = 0; i < game.minorBoards.length; i++) {
+					// 				game.minorBoards[i] = new MinorBoard();
+					// 				game.minorBoards[i].active = 1;
+					// 			}
+					// 		game.currentPlayer = 0;
+					// 		game.gameStatus = 0;
+					// 		game.numPlayers = 1;
+					// 		return game;
+					// 	}
+					// 	game = currentGame;
+					// 	game.numPlayers = 2;
+					// 	return game
+					// }
+
+					// function setGameState(snapShot) {
+					// 	self.gameState = snapShot.val()
+					// }
+
+				}
+			})();
+
+			//init method declaration
+			function initSession() {
+
+			}
+			function initGameState() {
 				if(self.gameState.gameStatus === undefined) {
 					self.gameState.minorBoards = new Array(9);
 					for(var i = 0; i < self.gameState.minorBoards.length; i++) {
@@ -44,20 +104,26 @@
 						}
 					self.gameState.currentPlayer = 0;
 					self.gameState.gameStatus = 0;
+					self.gameState.numPlayers = 1;
 					self.gameState.$save();
 				}
+				else {
+					self.gameState.numPlayers = 2;
+					self.gameState.$save();
+				}
+
 			}
 
-			function initPlayers(x) {
-				if(self.players.numPlayers === undefined) {
-					self.players.numPlayers = 1;
-				}
-				else {
-					self.players.numPlayers = self.players.numPlayers + 1;
-				}
-				self.localPlayer = (self.players.numPlayers - 1) % 2;
-				self.players.$save();
-			}
+			// function initPlayers() {
+			// 	if(self.players.numPlayers === undefined) {
+			// 		self.players.numPlayers = 1;
+			// 	}
+			// 	else {
+			// 		self.players.numPlayers = self.players.numPlayers + 1;
+			// 	}
+			// 	self.localPlayer = (self.players.numPlayers - 1) % 2;
+			// 	self.players.$save();
+			// }
 
 			//method declarations
 			function makeMove(boardIndex, cellIndex) {
@@ -94,19 +160,25 @@
 				return styles;
 			}
 
-			//Private methods
+			//Private method declarations
+
+			// function getSessionNum(){
+			// 	var ref = new Firebase(URL + "/sessions");
+			// 	var sessions = $firebase(ref).$asObject();
+			// 	return sessions;
+			// }
 
 			function getGameState(){
-				var ref = new Firebase(URL + "/gamestate");
+				var ref = new Firebase(URL + "/game" + gameNum);
 				var gameState = $firebase(ref).$asObject();
 				return gameState;
 			}
 
-			function getPlayers(){
-				var ref = new Firebase(URL + "/players");
-				var players = $firebase(ref).$asObject();
-				return players;
-			}
+			// function getPlayers(){
+			// 	var ref = new Firebase(URL + "/players");
+			// 	var players = $firebase(ref).$asObject();
+			// 	return players;
+			// }
 
 			function isPlayable(minorBoard) {
 				//Tells you if any spaces are left that can be moved to

@@ -79,6 +79,10 @@ body {
 	-webkit-transform: rotateY( 0deg ) translateZ( 12px );
 }
 
+.blank-cell:hover {
+	background-color: green;
+}
+
 .x-cell {
 	background-color: #FFC585;
 	-webkit-transform: rotateY( 120deg ) translateZ( 12px );
