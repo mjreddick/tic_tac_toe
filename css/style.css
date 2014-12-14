@@ -1,9 +1,10 @@
 body {
 	width: 700px;
-	margin: 0px auto;
+	margin: 10px auto;
 	font-family: sans-serif;
 	background-color: linen;
 }
+
 
 #name-input {
 	line-height: 100px;
@@ -155,15 +156,33 @@ body {
 .unselected { -webkit-transform: rotateY( 0deg ); }
 .x-selected { -webkit-transform: rotateY( -120deg ); }
 .o-selected { -webkit-transform: rotateY( 120deg ); }
-#player-names{
-	margin: 10px;
+
+#players-section{
+	margin: 5px 10px 0px 10px;
 }
-#player-1-name { float: left; }
-#player-2-name { float: right; }
-.player-name{
+.player {
+	display: inline-block;
+	text-align: center;
+}
+.name {
 	font-size: 25px;
-	margin: 0px 5px;
+	margin-bottom: 10px;
 }
-.current-player-1 { border-bottom: 2px solid #FFC585; }
-.current-player-2 { border-bottom: 2px solid #5599B2; }
+#player-2{ float: right; }
+.score { font-size: 15px; }
+
+.current-player-1 { border-bottom: 3px solid #FFC585; }
+.current-player-2 { border-bottom: 3px solid #5599B2; }
+
+#new-game{
+	text-align: center;
+}
+
+#new-game button {
+	font-size: 20px;
+}
+
+#winning-message{
+	margin-bottom: 5px;
+}
 

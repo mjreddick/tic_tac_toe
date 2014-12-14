@@ -35,6 +35,8 @@
 			self.getMinorBoardStyle = getMinorBoardStyle;
 			self.playerNameSubmitted = playerNameSubmitted;
 			self.getDisplayState = getDisplayState;
+			self.winningMessage = winningMessage;
+			self.resetGame = resetGame;
 
 
 			//initialization
@@ -75,12 +77,13 @@
 							self.gameState.minorBoards = new Array(9);
 							for(var i = 0; i < self.gameState.minorBoards.length; i++) {
 									self.gameState.minorBoards[i] = new MinorBoard();
-									self.gameState.minorBoards[i].active = 1;
+									self.gameState.minorBoards[i].active = true;
 								}
 							self.gameState.currentPlayer = 0;
 							self.gameState.gameStatus = 0;
 							self.gameState.numPlayers = 1;
 							self.gameState.playerNames = [];
+							self.gameState.scores = [0, 0];
 						}
 						else {
 							self.gameState.numPlayers = 2;
@@ -106,10 +109,25 @@
 					&& self.localPlayer === self.gameState.currentPlayer) 
 				{
 					self.gameState.minorBoards[boardIndex].cells[cellIndex] = self.getPlayerPiece();
-					self.gameState.minorBoards[boardIndex].status = checkForWin(self.gameState.minorBoards[boardIndex].cells);// might need two win checkers
-					self.gameState.gameStatus = checkForWin(self.gameState.minorBoards);
-					changePlayer();
-					setActiveState(cellIndex);
+					self.gameState.minorBoards[boardIndex].status = checkForWin(self.gameState.minorBoards[boardIndex].cells);
+					var winner = checkForWin(self.gameState.minorBoards);
+					self.gameState.gameStatus = winner;
+					if(winner !== 0) {
+						// game over
+						for(var i = 0; i < self.gameState.minorBoards.length; i++) {
+							//set all minor boards to inactive
+							self.gameState.minorBoards[i].active = false;
+						}
+						self.gameState.currentPlayer = null; //this way no one is the current player 
+						if(winner === 1 || winner === 2) {
+							self.gameState.scores[winner - 1]++;
+						}
+					}
+					else {
+						changePlayer();
+						setActiveState(cellIndex);
+					}
+					
 					self.gameState.$save();
 					
 				}
@@ -149,6 +167,33 @@
 					styles.push(ACTIVE_STYLES[self.gameState.currentPlayer]);
 				}
 				return styles;
+			}
+
+			function winningMessage() {
+				var winner = null;
+				if(self.gameState){
+					winner = self.gameState.gameStatus;
+					if(winner === 3) {
+						return "Cat's Game!"
+					}
+					else if(winner === 1 || winner == 2) {
+						return self.gameState.playerNames[winner - 1] + " Wins!";
+					}
+				}
+				return "";
+			}
+
+			function resetGame() {
+				for(var i = 0; i < self.gameState.minorBoards.length; i++) {
+						self.gameState.minorBoards[i].active = true;
+						self.gameState.minorBoards[i].status = 0;
+						for(var j = 0; j < self.gameState.minorBoards[i].cells.length; j++) {
+							self.gameState.minorBoards[i].cells[j] = 0;
+						}
+					}
+				self.gameState.currentPlayer = Math.floor(Math.random() * 2);
+				self.gameState.gameStatus = 0;
+				self.gameState.$save();
 			}
 
 			//Private method declarations

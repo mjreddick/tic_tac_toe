@@ -34,7 +34,7 @@
 							  ng-hide = "game.gameBoard.waiting">
 							<input type="text" ng-model="game.gameBoard.playerName" 
 								   placeholder="Please enter your name"
-								   maxlength="9" autofocus></input>
+								   maxlength="10" autofocus></input>
 							<input type="submit" value="Submit"></input>
 						</form>
 					</div>
@@ -46,33 +46,47 @@
 				<figure class="bottom"></figure>
 				<figure class="back">
 					<section id="game-board">
-							<div class="small-board" 
-								 ng-repeat="smallBoard in game.gameBoard.gameState.minorBoards track by $index"
-								 ng-class="game.gameBoard.getMinorBoardStyle($index)">
+						<section id="players-section">
+							<div class="player">
+								<div class="name">
+									<span ng-show="game.gameBoard.localPlayer==0">&middot</span>
+									<span id="player-1-name"
+										  ng-class="{'current-player-1': game.gameBoard.gameState.currentPlayer == 0}">
+										  {{game.gameBoard.gameState.playerNames[0]}} (X)
+									</span>
+								</div>
+								<div class="score">Score: {{game.gameBoard.gameState.scores[0]}}</div>
+							</div>
+							<div class="player" id="player-2">
+								<div class="name">
+									<span ng-show="game.gameBoard.localPlayer==1">&middot</span>
+									<span id="player-2-name"
+										  ng-class="{'current-player-2': game.gameBoard.gameState.currentPlayer == 1}">
+										  {{game.gameBoard.gameState.playerNames[1]}} (O)
+									</span>
+								</div>
+								<div class="score">Score: {{game.gameBoard.gameState.scores[1]}}</div>
+							</div>
+						</section>
+						<div class="small-board" 
+							 ng-repeat="smallBoard in game.gameBoard.gameState.minorBoards track by $index"
+							 ng-class="game.gameBoard.getMinorBoardStyle($index)">
 
-								<div class="cell-container"
-									ng-repeat="cell in smallBoard.cells track by $index"
-									ng-click="game.gameBoard.makeMove($parent.$index, $index)">
-									<div class="cell-prism"
-										 ng-class="game.gameBoard.getCellState($parent.$index, $index)">
-										<figure class="blank-cell" 
-												ng-class="{'blank-cell-hover': game.gameBoard.gameState.currentPlayer == game.gameBoard.localPlayer}"></figure>
-										<figure class="x-cell">X</figure>
-										<figure class="o-cell">O</figure>
-									</div>
+							<div class="cell-container"
+								ng-repeat="cell in smallBoard.cells track by $index"
+								ng-click="game.gameBoard.makeMove($parent.$index, $index)">
+								<div class="cell-prism"
+									 ng-class="game.gameBoard.getCellState($parent.$index, $index)">
+									<figure class="blank-cell" 
+											ng-class="{'blank-cell-hover': game.gameBoard.gameState.currentPlayer == game.gameBoard.localPlayer}"></figure>
+									<figure class="x-cell">X</figure>
+									<figure class="o-cell">O</figure>
 								</div>
 							</div>
-							<div id="player-names">
-							<span id="player-1-name" 
-								  class="player-name"
-								  ng-class="{'current-player-1': game.gameBoard.gameState.currentPlayer == 0}">
-								  <span ng-show="game.gameBoard.localPlayer==0">&middot</span>
-								  {{game.gameBoard.gameState.playerNames[0]}} (X)</span>
-							<span id="player-2-name" 
-								  class="player-name"
-								  ng-class="{'current-player-2': game.gameBoard.gameState.currentPlayer == 1}">
-								  <span ng-show="game.gameBoard.localPlayer==1">&middot</span>
-								  {{game.gameBoard.gameState.playerNames[1]}} (O)</span>
+						</div>
+						<div id="new-game" ng-hide="game.gameBoard.gameState.gameStatus == 0">
+							<div id="winning-message">{{game.gameBoard.winningMessage()}}</div>
+							<button ng-click="game.gameBoard.resetGame()">New Game</button>
 						</div>
 					</section>
 				</figure>
