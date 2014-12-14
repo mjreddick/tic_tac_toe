@@ -12,24 +12,34 @@
 		var MESSAGES = ['Play On!', 'Red Wins!', 'Blue Wins!', "Cat's Game"];
 		var CELL_STATE = ['unselected', 'x-selected', 'o-selected'];
 		var MINORBOARD_STATE = ['minor-no-win', 'x-minor-win','o-minor-win', 'minor-cat-game'];
-		var ACTIVE_STYLES = ['x-active', 'o-active']
+		var ACTIVE_STYLES = ['x-active', 'o-active'];
+		var DISPLAY_STYLES = ['show-top', 'show-back'];
 
 		var GameBoard = function() {
 			//capture variable
 			var self = this;
 
+			//private variables
+			var displayState = 0;
+
 			//public properties
 			self.gameState = null;//getGameState();
 			self.localPlayer = null;
+			self.playerName = "";
+			self.waiting = false;
 
 			//public methods
 			self.makeMove = makeMove;
 			self.getPlayerPiece = getPlayerPiece;
 			self.getCellState = getCellState;
 			self.getMinorBoardStyle = getMinorBoardStyle;
+			self.playerNameSubmitted = playerNameSubmitted;
+			self.getDisplayState = getDisplayState;
+
 
 			//initialization
-			(function init() {
+			//Note: initialization happens after a player enters their name
+			function init() {
 				var gameNum = null;
 				var ref = new Firebase(URL + "/numplayers");
 				var numPlayersRef = $firebase(ref);
@@ -70,17 +80,25 @@
 							self.gameState.currentPlayer = 0;
 							self.gameState.gameStatus = 0;
 							self.gameState.numPlayers = 1;
-							self.gameState.$save();
+							self.gameState.playerNames = [];
 						}
 						else {
 							self.gameState.numPlayers = 2;
-							self.gameState.$save();
 						}
+						self.gameState.playerNames[self.localPlayer] = self.playerName;
+						self.gameState.$save();
 					}
 				}
-			})();
+			};
 
 			//method declarations
+			function playerNameSubmitted() {
+				if(self.playerName.length > 0) {
+					self.waiting = true;
+					init();
+				}
+			}
+
 			function makeMove(boardIndex, cellIndex) {
 				if(self.gameState.minorBoards[boardIndex].cells[cellIndex] === 0 
 					&& self.gameState.minorBoards[boardIndex].active 
@@ -95,6 +113,24 @@
 					self.gameState.$save();
 					
 				}
+			}
+
+			function getDisplayState() {
+				if(self.gameState === null){
+					displayState = 0;
+				}
+				else { 
+					if (typeof self.gameState.numPlayers === "undefined") {
+						displayState = 0;
+					}
+					else if(self.gameState.numPlayers === 2){
+						displayState = 1;
+					}
+					else {
+						displayState = 0;
+					}
+				}
+				return DISPLAY_STYLES[displayState];
 			}
 
 			function getPlayerPiece() {
