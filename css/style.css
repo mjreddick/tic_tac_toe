@@ -3,7 +3,8 @@ body {
 	height: 660px;
 	margin: 10px auto;
 	font-family: sans-serif;
-	background-color: linen;
+	background-color: rgb(76, 71, 71);
+	color: white;
 }
 
 
@@ -47,7 +48,7 @@ body {
 }
 
 #game-rec-prism>figure {
-  background-color: linen;	
+  background-color: rgb(135, 140, 137);	
   display: block;
   position: absolute;
   border: 1px solid black;
@@ -160,19 +161,19 @@ body {
 	height: 144px;
 	padding: 4px;
 	margin: 10px;
-	border: 6px solid white;
+	border: 6px solid rgb(135, 140, 137);
 	border-radius: 10px;
 	text-align: center;
 	line-height: 0;
 }
 
-.x-active { border-color: #FFC585; }
+.x-active { border-color: rgb(247, 35, 73); }
 
-.o-active { border-color: #5599B2; }
+.o-active { border-color: rgb(80, 191, 148); }
 
-.minor-no-win { background-color: linen; }
-.x-minor-win { background-color: #FFD8AD; }
-.o-minor-win { background-color: #68BAD9; }
+.minor-no-win { background-color: white; }
+.x-minor-win { background-color: rgb(255, 132, 94); }
+.o-minor-win { background-color: rgb(185, 242, 145); }
 .minor-cat-game { background-color: orange; }
 
 .cell-container {
@@ -218,17 +219,17 @@ body {
 }
 
 .blank-cell {
-	background-color: #BECCD1;
+	background-color: rgb(76, 71, 71);
 	-webkit-transform: 	rotateY( 0deg ) translateZ( 12px );
 	-moz-transform: 	rotateY( 0deg ) translateZ( 12px );
 	-o-transform: 		rotateY( 0deg ) translateZ( 12px );
 	transform: 			rotateY( 0deg ) translateZ( 12px );
 }
 
-.blank-cell-hover:hover { background-color: green; }
+.blank-cell-hover:hover { background-color: rgb(246, 220, 133); }
 
 .x-cell {
-	background-color: #FFC585;
+	background-color: rgb(247, 35, 73);
 	-webkit-transform: 	rotateY( 120deg ) translateZ( 12px );
 	-moz-transform: 	rotateY( 120deg ) translateZ( 12px );
 	-o-transform: 		rotateY( 120deg ) translateZ( 12px );
@@ -236,7 +237,7 @@ body {
 }
 
 .o-cell {
-	background-color: #5599B2;
+	background-color: rgb(80, 191, 148);
 	-webkit-transform: 	rotateY( -120deg ) translateZ( 12px );
 	-moz-transform: 	rotateY( -120deg ) translateZ( 12px );
 	-o-transform: 		rotateY( -120deg ) translateZ( 12px );
@@ -276,8 +277,8 @@ body {
 #player-2{ float: right; }
 .score { font-size: 12px; }
 
-.current-player-1 { border-bottom: 3px solid #FFC585; }
-.current-player-2 { border-bottom: 3px solid #5599B2; }
+.current-player-1 { border-bottom: 3px solid rgb(247, 35, 73); }
+.current-player-2 { border-bottom: 3px solid rgb(80, 191, 148); }
 
 #new-game{
 	text-align: center;
@@ -319,7 +320,7 @@ body {
 }
 
 #chat-rec-prism>figure {
-  background-color: linen;	
+  background-color: rgb(135, 140, 137);	
   display: block;
   position: absolute;
   border: 1px solid black;
@@ -431,6 +432,7 @@ body {
 .chat-display {
 	height: 550px;
 	background-color: white;
+	color: black;
 	border: 1px solid black;
 	border-radius: 5px;
 	margin-top: 10px;
