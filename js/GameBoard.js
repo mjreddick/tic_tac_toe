@@ -15,6 +15,7 @@
 		var ACTIVE_STYLES = ['x-active', 'o-active'];
 		var DISPLAY_STYLES = ['show-top', 'show-back'];
 		var CHAT_STYLES = ['show-top', 'show-back', 'show-front'];
+		var CHAT_NAME_STYLE = ['player-1-chat-name', 'player-2-chat-name'];
 
 		var GameBoard = function() {
 			//capture variable
@@ -48,6 +49,7 @@
 			self.switchToGlobalChat = switchToGlobalChat;
 			self.switchToGameChat = switchToGameChat;
 			self.sendGlobalChatMessage = sendGlobalChatMessage;
+			self.getChatNameStyle = getChatNameStyle;
 
 
 			//initialization
@@ -212,6 +214,23 @@
 					}
 				}
 				return CHAT_STYLES[chatDisplay];
+			}
+
+			function getChatNameStyle(playerName) {
+				var chatNameStyle = 0;
+				if(self.gameState !== null) {
+					if(typeof self.gameState.playerNames !== "undefined" && 
+						self.gameState.playerNames.length > 0)
+					{	
+						if(playerName == self.gameState.playerNames[0]) {
+							chatNameStyle = 0;
+						}
+						else {
+							chatNameStyle = 1;
+						}
+					}
+				}
+				return CHAT_NAME_STYLE[chatNameStyle];
 			}
 
 

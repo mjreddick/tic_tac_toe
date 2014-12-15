@@ -131,7 +131,7 @@
 						<button ng-click="game.gameBoard.switchToGlobalChat()">Global ></button>
 						<div class="chat-display" id="game-chat-display">
 							<p ng-repeat="message in game.gameBoard.gameChat" class="chat-message">
-								<span class="chat-name">{{message.name}}: </span>
+								<span ng-class="game.gameBoard.getChatNameStyle(message.name)">{{message.name}}: </span>
 								{{message.message}}
 							</p>
 							

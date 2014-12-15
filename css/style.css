@@ -440,8 +440,16 @@ body {
 	overflow-y: scroll;
 }
 .chat-display .chat-name {
-	color: rgb(80, 191, 148);
+	color: rgb(191, 171, 18);
 }
+.player-1-chat-name {
+	color: rgb(247, 35, 73);
+}
+.player-2-chat-name {
+	color: rgb(80, 191, 148);
+
+}
+
 .chat-box > button {
 	float: right;
 }
