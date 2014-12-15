@@ -14,19 +14,25 @@
 		var MINORBOARD_STATE = ['minor-no-win', 'x-minor-win','o-minor-win', 'minor-cat-game'];
 		var ACTIVE_STYLES = ['x-active', 'o-active'];
 		var DISPLAY_STYLES = ['show-top', 'show-back'];
+		var CHAT_STYLES = ['show-top', 'show-back', 'show-front'];
 
 		var GameBoard = function() {
 			//capture variable
 			var self = this;
 
 			//private variables
-			var displayState = 0;
+			var displayState = 0; //0 is start screen, 1 is game board
+			var chatDisplay = 0; //0 is no chat, 1 is game chat, 2 is global chat
 
 			//public properties
-			self.gameState = null;//getGameState();
+			self.gameState = null;
 			self.localPlayer = null;
 			self.playerName = "";
 			self.waiting = false;
+			self.gameChat = null;
+			self.globalChat = null;
+			self.gameChatMessage = "";
+			self.globalChatMessage = "";
 
 			//public methods
 			self.makeMove = makeMove;
@@ -37,6 +43,11 @@
 			self.getDisplayState = getDisplayState;
 			self.winningMessage = winningMessage;
 			self.resetGame = resetGame;
+			self.sendGameChatMessage = sendGameChatMessage;
+			self.getChatDisplayState = getChatDisplayState;
+			self.switchToGlobalChat = switchToGlobalChat;
+			self.switchToGameChat = switchToGameChat;
+			self.sendGlobalChatMessage = sendGlobalChatMessage;
 
 
 			//initialization
@@ -62,7 +73,11 @@
 					gameNum = Math.floor((numPlayers - 1) / 2);
 					self.localPlayer = (numPlayers - 1) % 2;
 					self.gameState = getGameState();
+					self.gameChat = getgameChat();
+					self.globalChat = getGlobalChat();
 					self.gameState.$loaded().then(initGameState);
+
+					// self.globalChat.$add({name: self.playerName, message: "This is a Test"})
 
 					// initGame helper functions
 
@@ -70,6 +85,34 @@
 						var ref = new Firebase(URL + "/game" + gameNum);
 						var gameState = $firebase(ref).$asObject();
 						return gameState;
+					}
+
+					function getgameChat(){
+						var ref = new Firebase(URL + "/chat" + gameNum);
+						var gameChat = $firebase(ref).$asArray();
+						gameChat.$watch(scrollGameChat);
+						return gameChat;
+
+						function scrollGameChat() {
+							setTimeout(function(){
+								var elem = document.getElementById("game-chat-display");
+								elem.scrollTop = elem.scrollHeight;
+							}, 500);
+						}
+					}
+
+					function getGlobalChat(){
+						var ref = new Firebase(URL + "/globalchat");
+						var globalChat = $firebase(ref).$asArray();
+						globalChat.$watch(scrollGlobalChat);
+						return globalChat;
+
+						function scrollGlobalChat() {
+							setTimeout(function(){
+								var elem = document.getElementById("global-chat-display");
+								elem.scrollTop = elem.scrollHeight;
+							}, 500);
+						}
 					}
 
 					function initGameState() {
@@ -151,6 +194,27 @@
 				return DISPLAY_STYLES[displayState];
 			}
 
+			function getChatDisplayState() {
+				if(self.gameState === null){
+					chatDisplay = 0;
+				}
+				else { 
+					if (typeof self.gameState.numPlayers === "undefined") {
+						chatDisplay = 0;
+					}
+					else if(self.gameState.numPlayers === 2){
+						if(chatDisplay === 0){
+							chatDisplay = 1;
+						}	
+					}
+					else {
+						chatDisplay = 0;
+					}
+				}
+				return CHAT_STYLES[chatDisplay];
+			}
+
+
 			function getPlayerPiece() {
 				return PLAYER_PIECE[self.gameState.currentPlayer]
 			}
@@ -194,6 +258,28 @@
 				self.gameState.currentPlayer = Math.floor(Math.random() * 2);
 				self.gameState.gameStatus = 0;
 				self.gameState.$save();
+			}
+
+			function sendGameChatMessage() {
+				if(self.gameChatMessage.length > 0){
+					self.gameChat.$add({name: self.playerName, message: self.gameChatMessage});
+					self.gameChatMessage = "";
+				}
+			}
+
+			function sendGlobalChatMessage() {
+				if(self.globalChatMessage.length > 0){
+					self.globalChat.$add({name: self.playerName, message: self.globalChatMessage});
+					self.globalChatMessage = "";
+				}
+			}
+
+			function switchToGlobalChat() {
+				chatDisplay = 2;
+			}
+
+			function switchToGameChat() {
+				chatDisplay = 1;
 			}
 
 			//Private method declarations

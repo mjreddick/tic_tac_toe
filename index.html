@@ -23,7 +23,7 @@
 	</head>
 
 	<body ng-controller="TicTacToeController as game">
-		<div class="main-container">
+		<div id="main-container">
 			<div id="game-rec-prism" ng-class="game.gameBoard.getDisplayState()">
 				<figure class="front"></figure>
 				<figure class="left"></figure>
@@ -87,6 +87,61 @@
 						<div id="new-game" ng-hide="game.gameBoard.gameState.gameStatus == 0">
 							<div id="winning-message">{{game.gameBoard.winningMessage()}}</div>
 							<button ng-click="game.gameBoard.resetGame()">New Game</button>
+						</div>
+					</section>
+					
+				</figure>
+			</div>
+		</div>
+
+		<div id="chat-container">
+			<div id="chat-rec-prism" ng-class="game.gameBoard.getChatDisplayState()">				
+				<figure class="left"></figure>
+				<figure class="right"></figure>
+				<figure class="bottom"></figure>
+				<figure class="top"></figure>
+				<!-- maybe some kind of icon in top -->
+				<figure class="front">
+					<!-- global chat -->
+					<section id="global-chat" class="chat-box">
+						<span>Global Chat</span>
+						<button ng-click="game.gameBoard.switchToGameChat()">Game ></button>
+						<div class="chat-display" id="global-chat-display">
+							<p ng-repeat="message in game.gameBoard.globalChat" class="chat-message">
+								<span class="chat-name">{{message.name}}: </span>
+								{{message.message}}
+							</p>
+							
+						</div>
+						<div class="chat-input">
+							<form ng-submit="game.gameBoard.sendGlobalChatMessage()" >
+								<input type="text" ng-model="game.gameBoard.globalChatMessage" 
+									   placeholder="message"
+									   class="chat-input-box"></input>
+								<!-- <input type="submit" value="Send" class="send-button"></input> -->
+							</form>
+						</div>
+					</section>
+				</figure>
+				<figure class="back">
+					<!-- game chat -->
+					<section id="game-chat" class="chat-box">
+						<span>Game Chat</span>
+						<button ng-click="game.gameBoard.switchToGlobalChat()">Global ></button>
+						<div class="chat-display" id="game-chat-display">
+							<p ng-repeat="message in game.gameBoard.gameChat" class="chat-message">
+								<span class="chat-name">{{message.name}}: </span>
+								{{message.message}}
+							</p>
+							
+						</div>
+						<div class="chat-input">
+							<form ng-submit="game.gameBoard.sendGameChatMessage()" >
+								<input type="text" ng-model="game.gameBoard.gameChatMessage" 
+									   placeholder="message"
+									   class="chat-input-box"></input>
+								<!-- <input type="submit" value="Send" class="send-button"></input> -->
+							</form>
 						</div>
 					</section>
 				</figure>
