@@ -440,7 +440,7 @@ body {
 	overflow-y: scroll;
 }
 .chat-display .chat-name {
-	color: blue;
+	color: rgb(80, 191, 148);
 }
 .chat-box > button {
 	float: right;
