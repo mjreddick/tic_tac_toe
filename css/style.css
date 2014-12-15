@@ -23,6 +23,7 @@ body {
 }
 
 #main-container {
+	margin-left: 10px;
 	width: 610px;
 	height: 655px;
 	position: relative;
