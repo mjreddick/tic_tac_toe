@@ -175,7 +175,7 @@ body {
 .minor-no-win { background-color: white; }
 .x-minor-win { background-color: rgb(255, 132, 94); }
 .o-minor-win { background-color: rgb(185, 242, 145); }
-.minor-cat-game { background-color: orange; }
+.minor-cat-game { background-color: white; }
 
 .cell-container {
 	display: inline-block;
