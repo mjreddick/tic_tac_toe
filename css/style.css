@@ -8,7 +8,7 @@ body {
 
 
 #name-input {
-	line-height: 100px;
+	line-height: 200px;
 	text-align: center;
 	vertical-align: middle;
 }
@@ -16,23 +16,33 @@ body {
 #waiting-message {
 	text-align: center;
 	height: 100px;
-	line-height: 50px;
+	line-height: 30px;
 	vertical-align: middle;
+	margin: 70px auto;
 }
 
 #main-container {
 	width: 610px;
 	height: 655px;
 	position: relative;
-	perspective: 1000px;
 	display: inline-block;
+	-webkit-perspective: 1000px;
+	-moz-perspective: 1000px;
+	-o-perspective: 1000px;
+	perspective: 1000px;
 }
 
 #game-rec-prism {
 	width: 100%;
 	height: 100%;
   	position: absolute;
+  	-webkit-transition: 3s;
+  	-moz-transition: 3s;
+  	-o-transition: 3s;
   	transition: 3s;
+  	-webkit-transform-style: preserve-3d;
+  	-moz-transform-style: preserve-3d;
+  	-o-transform-style: preserve-3d;
   	transform-style: preserve-3d;
 }
 
@@ -65,19 +75,79 @@ body {
   top: 225px;
 }
 
-#game-rec-prism .front  { transform: rotateY(   0deg ) translateZ(  100px ); }
-#game-rec-prism .back   { transform: rotateX( 180deg ) rotateZ(180deg) translateZ(  100px ); }
-#game-rec-prism .right  { transform: rotateY(  90deg ) translateZ( 300px ); }
-#game-rec-prism .left   { transform: rotateY( -90deg ) translateZ( 300px ); }
-#game-rec-prism .top    { transform: rotateX(  90deg ) translateZ( 325px ); }
-#game-rec-prism .bottom { transform: rotateX( -90deg ) translateZ( 325px ); }
+#game-rec-prism .front  { 
+	-webkit-transform: 	rotateY(   0deg ) translateZ(  100px );
+	-moz-transform: 	rotateY(   0deg ) translateZ(  100px );
+	-o-transform: 		rotateY(   0deg ) translateZ(  100px );
+	transform: 			rotateY(   0deg ) translateZ(  100px );
+}
+#game-rec-prism .back   { 
+	-webkit-transform: 	rotateX( 180deg ) rotateZ(180deg) translateZ(  100px );
+	-moz-transform: 	rotateX( 180deg ) rotateZ(180deg) translateZ(  100px );
+	-o-transform: 		rotateX( 180deg ) rotateZ(180deg) translateZ(  100px ); 
+	transform: 			rotateX( 180deg ) rotateZ(180deg) translateZ(  100px );
+}
+#game-rec-prism .right  { 
+	-webkit-transform: 	rotateY(  90deg ) translateZ( 300px );
+	-moz-transform: 	rotateY(  90deg ) translateZ( 300px );
+	-o-transform: 		rotateY(  90deg ) translateZ( 300px );
+	transform: 			rotateY(  90deg ) translateZ( 300px );
+ }
+#game-rec-prism .left   { 
+	-webkit-transform: 	rotateY( -90deg ) translateZ( 300px );
+	-moz-transform: 	rotateY( -90deg ) translateZ( 300px );
+	-o-transform: 		rotateY( -90deg ) translateZ( 300px );
+	transform: 			rotateY( -90deg ) translateZ( 300px );
+}
+#game-rec-prism .top    { 
+	-webkit-transform: 	rotateX(  90deg ) translateZ( 325px );
+	-moz-transform: 	rotateX(  90deg ) translateZ( 325px );
+	-o-transform: 		rotateX(  90deg ) translateZ( 325px );
+	transform: 			rotateX(  90deg ) translateZ( 325px );
+}
+#game-rec-prism .bottom { 
+	-webkit-transform: 	rotateX( -90deg ) translateZ( 325px );
+	-moz-transform: 	rotateX( -90deg ) translateZ( 325px );
+	-o-transform: 		rotateX( -90deg ) translateZ( 325px );
+	transform: 			rotateX( -90deg ) translateZ( 325px );
+}
 
-#game-rec-prism.show-front  { transform: translateZ(  -100px ) rotateY(    0deg ); }
-#game-rec-prism.show-back   { transform: translateZ(  -100px ) rotateX( -180deg ) rotateZ( 180deg ); }
-#game-rec-prism.show-right  { transform: translateZ( -300px ) rotateY(  -90deg ); }
-#game-rec-prism.show-left   { transform: translateZ( -300px ) rotateY(   90deg ); }
-#game-rec-prism.show-top    { transform: translateZ( -325px ) rotateX(  -90deg ); }
-#game-rec-prism.show-bottom { transform: translateZ( -325px ) rotateX(   90deg ); }
+#game-rec-prism.show-front  { 
+	-webkit-transform: 	translateZ(  -100px ) rotateY(    0deg );
+	-moz-transform: 	translateZ(  -100px ) rotateY(    0deg );
+	-o-transform: 		translateZ(  -100px ) rotateY(    0deg );
+	transform: 			translateZ(  -100px ) rotateY(    0deg );
+}
+#game-rec-prism.show-back   { 
+	-webkit-transform: 	translateZ(  -100px ) rotateX( -180deg ) rotateZ( 180deg );
+	-moz-transform: 	translateZ(  -100px ) rotateX( -180deg ) rotateZ( 180deg );
+	-o-transform: 		translateZ(  -100px ) rotateX( -180deg ) rotateZ( 180deg );
+	transform: 			translateZ(  -100px ) rotateX( -180deg ) rotateZ( 180deg );
+}
+#game-rec-prism.show-right  { 
+	-webkit-transform: 	translateZ( -300px ) rotateY(  -90deg );
+	-moz-transform: 	translateZ( -300px ) rotateY(  -90deg );
+	-o-transform: 		translateZ( -300px ) rotateY(  -90deg );
+	transform: 			translateZ( -300px ) rotateY(  -90deg );
+}
+#game-rec-prism.show-left   { 
+	-webkit-transform: 	translateZ( -300px ) rotateY(   90deg );
+	-moz-transform: 	translateZ( -300px ) rotateY(   90deg );
+	-o-transform: 		translateZ( -300px ) rotateY(   90deg );
+	transform: 			translateZ( -300px ) rotateY(   90deg );
+}
+#game-rec-prism.show-top    { 
+	-webkit-transform: 	translateZ( -325px ) rotateX(  -90deg );
+	-moz-transform: 	translateZ( -325px ) rotateX(  -90deg );
+	-o-transform: 		translateZ( -325px ) rotateX(  -90deg );
+	transform: 			translateZ( -325px ) rotateX(  -90deg );
+}
+#game-rec-prism.show-bottom { 
+	-webkit-transform: 	translateZ( -325px ) rotateX(   90deg );
+	-moz-transform: 	translateZ( -325px ) rotateX(   90deg );
+	-o-transform: 		translateZ( -325px ) rotateX(   90deg );
+	transform: 			translateZ( -325px ) rotateX(   90deg );
+}
 
 #game-board {
 	width: 552px;
@@ -113,7 +183,11 @@ body {
 	/*background-color: white;*/
 	/*border: 2px solid black;*/
 	position: relative;
-	transform: perspective( 2000px );
+	-webkit-perspective: 2000px;
+	-webkit-transform: 	perspective( 2000px );
+	-moz-transform: 	perspective( 2000px );
+	-o-transform: 		perspective( 2000px );
+	transform: 			perspective( 2000px );
 
 }
 
@@ -121,9 +195,14 @@ body {
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	transform-style: preserve-3d;
-	transition: 1s;
-	-webkit-transform: translateZ( -14px );
+	-webkit-transform-style: 	preserve-3d;
+	-moz-transform-style: 		preserve-3d;
+	-o-transform-style: 		preserve-3d;
+	transform-style: 			preserve-3d;
+	-webkit-transition: 1s;
+	-moz-transition: 	1s;
+	-o-transition: 		1s;
+	transition: 		1s;
 }
 
 .cell-prism figure {
@@ -140,24 +219,48 @@ body {
 
 .blank-cell {
 	background-color: #BECCD1;
-	-webkit-transform: rotateY( 0deg ) translateZ( 12px );
+	-webkit-transform: 	rotateY( 0deg ) translateZ( 12px );
+	-moz-transform: 	rotateY( 0deg ) translateZ( 12px );
+	-o-transform: 		rotateY( 0deg ) translateZ( 12px );
+	transform: 			rotateY( 0deg ) translateZ( 12px );
 }
 
 .blank-cell-hover:hover { background-color: green; }
 
 .x-cell {
 	background-color: #FFC585;
-	-webkit-transform: rotateY( 120deg ) translateZ( 12px );
+	-webkit-transform: 	rotateY( 120deg ) translateZ( 12px );
+	-moz-transform: 	rotateY( 120deg ) translateZ( 12px );
+	-o-transform: 		rotateY( 120deg ) translateZ( 12px );
+	transform: 			rotateY( 120deg ) translateZ( 12px );
 }
 
 .o-cell {
 	background-color: #5599B2;
-	-webkit-transform: rotateY( -120deg ) translateZ( 12px );
+	-webkit-transform: 	rotateY( -120deg ) translateZ( 12px );
+	-moz-transform: 	rotateY( -120deg ) translateZ( 12px );
+	-o-transform: 		rotateY( -120deg ) translateZ( 12px );
+	transform: 			rotateY( -120deg ) translateZ( 12px );
 }
 
-.unselected { -webkit-transform: rotateY( 0deg ); }
-.x-selected { -webkit-transform: rotateY( -120deg ); }
-.o-selected { -webkit-transform: rotateY( 120deg ); }
+.unselected { 
+	-webkit-transform: 	rotateY( 0deg );
+	-moz-transform: 	rotateY( 0deg );
+	-o-transform: 		rotateY( 0deg );
+	transform: 			rotateY( 0deg );
+}
+.x-selected { 
+	-webkit-transform: 	rotateY( -120deg );
+	-moz-transform: 	rotateY( -120deg );
+	-o-transform: 		rotateY( -120deg );
+	transform:			rotateY( -120deg );
+}
+.o-selected { 
+	-webkit-transform: 	rotateY( 120deg );
+	-moz-transform: 	rotateY( 120deg );
+	-o-transform:		rotateY( 120deg );
+	transform: 			rotateY( 120deg );
+}
 
 #players-section{
 	margin: 0px 10px;
@@ -193,18 +296,26 @@ body {
 	width: 210px;
 	height: 655px;
 	position: relative;
-	perspective: 1000px;
+	-webkit-perspective: 	1000px;
+	-moz-perspective: 		1000px;
+	-o-perspective: 		1000px;
+	perspective: 			1000px;
 	display: inline-block;
 	margin-left: 50px;
-	/*vertical-align: top;*/
 }
 
 #chat-rec-prism {
 	width: 100%;
 	height: 100%;
   	position: absolute;
-  	transition: 3s;
-  	transform-style: preserve-3d;
+  	-webkit-transition: 3s;
+  	-moz-transition: 	3s;
+  	-o-transition: 		3s;
+  	transition: 		3s;
+  	-webkit-transform-style: 	preserve-3d;
+  	-moz-transform-style: 		preserve-3d;
+  	-o-transform-style: 		preserve-3d;
+  	transform-style: 			preserve-3d;
 }
 
 #chat-rec-prism>figure {
@@ -236,19 +347,80 @@ body {
   top: 225px;
 }
 
-#chat-rec-prism .front  { transform: rotateY(   0deg ) translateZ(  100px ); }
-#chat-rec-prism .back   { transform: rotateX( 180deg ) rotateZ(180deg) translateZ(  100px ); }
-#chat-rec-prism .right  { transform: rotateY(  90deg ) translateZ( 100px ); }
-#chat-rec-prism .left   { transform: rotateY( -90deg ) translateZ( 100px ); }
-#chat-rec-prism .top    { transform: rotateX(  90deg ) translateZ( 325px ); }
-#chat-rec-prism .bottom { transform: rotateX( -90deg ) translateZ( 325px ); }
+#chat-rec-prism .front  { 
+	-webkit-transform: 	rotateY(   0deg ) translateZ(  100px );
+	-moz-transform: 	rotateY(   0deg ) translateZ(  100px );
+	-o-transform: 		rotateY(   0deg ) translateZ(  100px );
+	transform: 			rotateY(   0deg ) translateZ(  100px );
+}
+#chat-rec-prism .back   { 
+	-webkit-transform: 	rotateX( 180deg ) rotateZ(180deg) translateZ(  100px );
+	-moz-transform: 	rotateX( 180deg ) rotateZ(180deg) translateZ(  100px );
+	-o-transform: 		rotateX( 180deg ) rotateZ(180deg) translateZ(  100px );
+	transform: 			rotateX( 180deg ) rotateZ(180deg) translateZ(  100px );
+}
+#chat-rec-prism .right  { 
+	-webkit-transform: 	rotateY(  90deg ) translateZ( 100px );
+	-moz-transform: 	rotateY(  90deg ) translateZ( 100px );
+	-o-transform: 		rotateY(  90deg ) translateZ( 100px );
+	transform: 			rotateY(  90deg ) translateZ( 100px );
+}
+#chat-rec-prism .left   { 
+	-webkit-transform: 	rotateY( -90deg ) translateZ( 100px );
+	-moz-transform: 	rotateY( -90deg ) translateZ( 100px );
+	-o-transform: 		rotateY( -90deg ) translateZ( 100px );
+	transform: 			rotateY( -90deg ) translateZ( 100px );
+}
+#chat-rec-prism .top    { 
+	-webkit-transform: 	rotateX(  90deg ) translateZ( 325px );
+	-moz-transform: 	rotateX(  90deg ) translateZ( 325px );
+	-o-transform: 		rotateX(  90deg ) translateZ( 325px );
+	transform: 			rotateX(  90deg ) translateZ( 325px );
+}
+#chat-rec-prism .bottom { 
+	-webkit-transform: 	rotateX( -90deg ) translateZ( 325px );
+	-moz-transform: 	rotateX( -90deg ) translateZ( 325px );
+	-o-transform: 		rotateX( -90deg ) translateZ( 325px );
+	transform: 			rotateX( -90deg ) translateZ( 325px );
+}
 
-#chat-rec-prism.show-front  { transform: translateZ(  -100px ) rotateY(    0deg ); }
-#chat-rec-prism.show-back   { transform: translateZ(  -100px ) rotateX( -180deg ) rotateZ(180deg); }
-#chat-rec-prism.show-right  { transform: translateZ( -100px ) rotateY(  -90deg ); }
-#chat-rec-prism.show-left   { transform: translateZ( -100px ) rotateY(   90deg ); }
-#chat-rec-prism.show-top    { transform: translateZ( -325px ) rotateX(  -90deg ); }
-#chat-rec-prism.show-bottom { transform: translateZ( -325px ) rotateX(   90deg ); }
+#chat-rec-prism.show-front  { 
+	-webkit-transform: 	translateZ(  -100px ) rotateY(    0deg );
+	-moz-transform: 	translateZ(  -100px ) rotateY(    0deg );
+	-o-transform: 		translateZ(  -100px ) rotateY(    0deg );
+	transform: 			translateZ(  -100px ) rotateY(    0deg );
+
+}
+#chat-rec-prism.show-back   { 
+	-webkit-transform: 	translateZ(  -100px ) rotateX( -180deg ) rotateZ(180deg);
+	-moz-transform: 	translateZ(  -100px ) rotateX( -180deg ) rotateZ(180deg);
+	-o-transform: 		translateZ(  -100px ) rotateX( -180deg ) rotateZ(180deg);
+	transform: 			translateZ(  -100px ) rotateX( -180deg ) rotateZ(180deg);
+}
+#chat-rec-prism.show-right  { 
+	-webkit-transform: 	translateZ( -100px ) rotateY(  -90deg );
+	-moz-transform: 	translateZ( -100px ) rotateY(  -90deg );
+	-o-transform: 		translateZ( -100px ) rotateY(  -90deg );
+	transform: 			translateZ( -100px ) rotateY(  -90deg );
+}
+#chat-rec-prism.show-left   { 
+	-webkit-transform: 	translateZ( -100px ) rotateY(   90deg );
+	-moz-transform: 	translateZ( -100px ) rotateY(   90deg );
+	-o-transform: 		translateZ( -100px ) rotateY(   90deg );
+	transform: 			translateZ( -100px ) rotateY(   90deg );
+}
+#chat-rec-prism.show-top    { 
+	-webkit-transform: 	translateZ( -325px ) rotateX(  -90deg );
+	-moz-transform: 	translateZ( -325px ) rotateX(  -90deg );
+	-o-transform: 		translateZ( -325px ) rotateX(  -90deg );
+	transform: 			translateZ( -325px ) rotateX(  -90deg );
+}
+#chat-rec-prism.show-bottom { 
+	-webkit-transform: 	translateZ( -325px ) rotateX(   90deg );
+	-moz-transform: 	translateZ( -325px ) rotateX(   90deg );
+	-o-transform: 		translateZ( -325px ) rotateX(   90deg );
+	transform: 			translateZ( -325px ) rotateX(   90deg );
+}
 
 .chat-box {
 	width: 180px;
