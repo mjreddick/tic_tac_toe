@@ -15,7 +15,7 @@
 			this.status = 0;
 			//keeps track of whether or not the board can be played on
 			this.active = true;
-		}
+		};
 
 		return MinorBoard;
 	}

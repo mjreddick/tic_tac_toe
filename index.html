@@ -34,8 +34,8 @@
 							  ng-hide = "game.gameBoard.waiting">
 							<input type="text" ng-model="game.gameBoard.playerName" 
 								   placeholder="Please enter your name"
-								   maxlength="10" autofocus></input>
-							<input type="submit" value="Submit"></input>
+								   maxlength="10" autofocus/>
+							<input type="submit" value="Submit"/>
 						</form>
 					</div>
 					<div id="waiting-message"ng-show="game.gameBoard.waiting">
@@ -118,7 +118,7 @@
 							<form ng-submit="game.gameBoard.sendGlobalChatMessage()" >
 								<input type="text" ng-model="game.gameBoard.globalChatMessage" 
 									   placeholder="message"
-									   class="chat-input-box"></input>
+									   class="chat-input-box"/>
 								<!-- <input type="submit" value="Send" class="send-button"></input> -->
 							</form>
 						</div>
@@ -140,7 +140,7 @@
 							<form ng-submit="game.gameBoard.sendGameChatMessage()" >
 								<input type="text" ng-model="game.gameBoard.gameChatMessage" 
 									   placeholder="message"
-									   class="chat-input-box"></input>
+									   class="chat-input-box"/>
 								<!-- <input type="submit" value="Send" class="send-button"></input> -->
 							</form>
 						</div>
