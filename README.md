@@ -1,4 +1,4 @@
-#T-3: Tic Tac Toe
+#3T: Tic Tac Toe
 
 ###Summary:
 This is an online multiplayer version of ultimate tic tac toe. Every two players that sign in are paired off into their own game.  Players can chat with the other player in their game (using game chat) as well as all players currently playing (using global chat)
