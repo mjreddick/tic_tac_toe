@@ -342,7 +342,6 @@
 
 			function checkForWin(arr) {
 				//returns a 0 for no win, 1 for X win, 2 for O win, and 3 for cat's game
-				//fix this and all should be well!!!
 				var cells = new Array(arr.length);
 				if(typeof(arr[0]) === "object") {
 					//this means you're being passed an array of minor boards
